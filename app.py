@@ -19,14 +19,15 @@ st.title("Top semanal en Chile")
 st.header("25 de julio de 2024")
 
 col1, col2 = st.columns(2)
-chart_top_weeks = top_weeks(df)
 chart_top_track = top_tracks(df)
+chart_top_weeks = top_weeks(df)
+
 
 with col1:
-    st.altair_chart(chart_top_weeks, use_container_width=True)
+    st.altair_chart(chart_top_track, use_container_width=True)
 
 with col2:
-    st.altair_chart(chart_top_track, use_container_width=True)
+    st.altair_chart(chart_top_weeks, use_container_width=True)
 
 
 col1, col2 = st.columns(2)
