@@ -1,0 +1,7 @@
+pandas
+seaborn
+networkx
+openpyxl
+streamlit_agraph
+pygraphviz 
+scipy 
