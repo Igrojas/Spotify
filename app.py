@@ -15,71 +15,75 @@ df["first_artist"] = first_artist
 st.title("Top semanal en Chile")
 st.header("25 de julio de 2024")
 
-col1, col2, col3= st.columns((0.4, 0.2, 0.4))
-chart_top_track = top_tracks(df)
-primer_artista_nombre, primer_artista_streams =  mas_escuchado(df)
+st.write("-----")
 
-with col1:
-    st.altair_chart(chart_top_track, use_container_width=True)
+with st.container():
 
-with col2:
-    st.write(" ")
+    col1, col2, col3= st.columns(3)
+    chart_top_track = top_tracks(df)
+    primer_artista_nombre, primer_artista_streams =  mas_escuchado(df)
+    chart_top_streamed = Top_streamed(df)
+
+    with col1:
+        st.altair_chart(chart_top_track, use_container_width=True)
+        
+    with col2:
+        st.markdown(f"""
+
+                <div style="text-align: center;">
+                    <h2 style="font-weight: bold;">Artista más escuchado</h2>
+                    <span style="font-size: 35px; color: #1DB954; font-weight: bold;">
+                    {primer_artista_nombre}
+                    </span>
+                </div>
+                    """, unsafe_allow_html=True)
+        
+    with col2:
+            st.markdown(f"""
+                    <div style="text-align: center;">
+                        <h2 style="font-weight: bold;">Número de reproducciones</h2>
+                        <span style="font-size: 35px; color: #1DB954; font-weight: bold;">
+                        {primer_artista_streams:,}
+                        </span>
+                    </div>
+                        """, unsafe_allow_html=True)
     
-with col3:
-    st.markdown(f"""
-        ## Artista más escuchado
+    with col3:
+         st.altair_chart(chart_top_streamed, use_container_width=True)
+        
 
-        <span style="font-size: 50px; color: #1DB954;">
-        {primer_artista_nombre}
-        </span>
-
-                """, unsafe_allow_html=True)
-    
-with col3:
-    st.markdown(f"""
-
-        ## Número de reproducciones
-
-        <span style="font-size: 50px; color: #1DB954;">
-        {primer_artista_streams:,}
-        </span>
-
-                """, unsafe_allow_html=True)
-    
-
-    
-
-chart_top_weeks = top_weeks(df)
-primer_artista_nombre, primer_artista_weeks = mas_semanas(df)
-
-col1, col2, col3= st.columns((0.4, 0.1, 0.6))
-chart_top_streamed = Top_streamed(df)
-
-with col1:
-    st.markdown(f"""
-        ## Artista con más semanas en el top
-
-        <span style="font-size: 50px; color: #1DB954;">
-        {primer_artista_nombre}
-        </span>
-
-                """, unsafe_allow_html=True)
-    
-with col1:
-    st.markdown(f"""
-
-        ## Número de semanas en el top
-
-        <span style="font-size: 50px; color: #1DB954;">
-        {primer_artista_weeks:,}
-        </span>
-
-                """, unsafe_allow_html=True)
-with col3:
-    st.altair_chart(chart_top_weeks, use_container_width=True)
+    chart_top_weeks = top_weeks(df)
+    primer_artista_nombre, primer_artista_weeks = mas_semanas(df)
+    pie_top_weeked = Top_weeked(df)
+    col1, col2, col3= st.columns((3))
 
 
+    with col1:
+        st.markdown(f"""
 
+                <div style="text-align: center;">
+                    <h2 style="font-weight: bold;">Artista con más semanas en el top</h2>
+                    <span style="font-size: 35px; color: #1DB954; font-weight: bold;">
+                    {primer_artista_nombre}
+                    </span>
+                </div>
+                    """, unsafe_allow_html=True)
+        
+    with col1:
+            st.markdown(f"""
+                    <div style="text-align: center;">
+                        <h2 style="font-weight: bold;">Número de semanas en el top</h2>
+                        <span style="font-size: 35px; color: #1DB954; font-weight: bold;">
+                        {primer_artista_weeks:,}
+                        </span>
+                    </div>
+                        """, unsafe_allow_html=True)
+            
+    with col2:
+         st.altair_chart(pie_top_weeked, use_container_width=True)
+         
+    with col3:
+        st.altair_chart(chart_top_weeks, use_container_width=True)
 
 
 st.write("-----")
