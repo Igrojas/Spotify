@@ -12,24 +12,11 @@ for row, data in df.iterrows():
 
 df["first_artist"] = first_artist
 
-
-
-
 st.title("Top semanal en Chile")
 st.header("25 de julio de 2024")
 
-
-
-# col1, col2 = st.columns(2)
-
-# with col1:
-#     st.metric("Artista mas escuchado", primer_artista_nombre)
-#     st.metric("Número de reproducciones", primer_artista_streams)
-
-
 col1, col2, col3= st.columns((0.4, 0.2, 0.4))
 chart_top_track = top_tracks(df)
-chart_top_weeks = top_weeks(df)
 primer_artista_nombre, primer_artista_streams =  mas_escuchado(df)
 
 with col1:
@@ -38,7 +25,6 @@ with col1:
 with col2:
     st.write(" ")
     
-
 with col3:
     st.markdown(f"""
         ## Artista más escuchado
@@ -51,6 +37,7 @@ with col3:
     
 with col3:
     st.markdown(f"""
+
         ## Número de reproducciones
 
         <span style="font-size: 50px; color: #1DB954;">
@@ -62,19 +49,40 @@ with col3:
 
     
 
+chart_top_weeks = top_weeks(df)
+primer_artista_nombre, primer_artista_weeks = mas_semanas(df)
 
-col1, col2 = st.columns(2)
+col1, col2, col3= st.columns((0.4, 0.1, 0.6))
 chart_top_streamed = Top_streamed(df)
+
 with col1:
-    st.altair_chart(chart_top_streamed, use_container_width=True)
+    st.markdown(f"""
+        ## Artista con más semanas en el top
+
+        <span style="font-size: 50px; color: #1DB954;">
+        {primer_artista_nombre}
+        </span>
+
+                """, unsafe_allow_html=True)
+    
+with col1:
+    st.markdown(f"""
+
+        ## Número de semanas en el top
+
+        <span style="font-size: 50px; color: #1DB954;">
+        {primer_artista_weeks:,}
+        </span>
+
+                """, unsafe_allow_html=True)
+with col3:
+    st.altair_chart(chart_top_weeks, use_container_width=True)
 
 
 
 
 
-
-
-
+st.write("-----")
 st.header("Información por artista")
 
 
