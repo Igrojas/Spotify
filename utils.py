@@ -22,15 +22,15 @@ def top_tracks(df):
     top_50 = df.head(50)
     top_50.sort_values("weeks_on_chart",ascending=False)
     
-    chart = alt.Chart(top_50.head(20)).mark_bar(
-        color='#2E865F',
+    chart = alt.Chart(top_50.head(15)).mark_bar(
+        color='#1DB954',
     ).encode(
-        x = alt.X("track_name", sort= '-y', axis = alt.Axis(title="Canción")),
-        y = alt.Y('streams', axis=alt.Axis(title = "Número de reproducciones")),
+        y = alt.Y("track_name", sort= '-x', axis = alt.Axis(title="Canción")),
+        x = alt.X('streams', axis=alt.Axis(title = "Número de reproducciones")),
         tooltip = ["track_name", "artist_names", "streams"]
     ).properties(
         title="20 canciones con mas reproducciones del top 200 semanal",
-        height = 500,
+        # height = 400
     )
 
     return chart
@@ -54,3 +54,9 @@ def Top_streamed(df):
     text = chart.mark_text(radius=250, size=15).encode(text="first_artist:N")
 
     return pie + text
+
+def mas_escuchado(df):
+    mas_escuchados = df.groupby("first_artist")["streams"].sum().sort_values(ascending=False).reset_index().iloc[0]
+    primer_artista_nombre = mas_escuchados["first_artist"]
+    primer_artista_streams = mas_escuchados["streams"]
+    return primer_artista_nombre, primer_artista_streams
