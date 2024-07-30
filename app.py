@@ -2,12 +2,29 @@ import streamlit as st
 import pandas as pd
 from utils import *
 
+
+
 st.set_page_config(page_title="Top semanal Chile",
                    layout="wide")
 
+paises = {
+    "Chile": "cl",
+    "Colombia": "co",
+    "Brazil": "br",
+    "Global": "global"
+}
+
+# Crear un selectbox para seleccionar el país
+pais_seleccionado = st.selectbox(
+    "Selecciona un país",
+    options=list(paises.keys())  # Mostrar los nombres de los países en el selectbox
+)
+
+codigo_pais = paises[pais_seleccionado]
+
+df = pd.read_csv("data/regional-" + codigo_pais +"-weekly-2024-07-25.csv", sep=",")
 
 
-df = pd.read_csv("data/regional-cl-weekly-2024-07-25.csv", sep=",")
 first_artist = []
 for row, data in df.iterrows():
     # print(row, data['artist_names'].split(',')[0])
@@ -15,7 +32,7 @@ for row, data in df.iterrows():
 
 df["first_artist"] = first_artist
 
-st.title("Top semanal en Chile")
+st.title("Top semanal en" + " " + pais_seleccionado)
 st.header("25 de julio de 2024")
 
 st.write("-----")
